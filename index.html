@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nexus Advisory — Trusted Independent Consulting</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --cream: #F5F1EA;
+      --dark: #1A1A18;
+      --charcoal: #2E2E2A;
+      --sage: #4A5C44;
+      --sage-light: #6B7D65;
+      --warm-white: #FEFCF8;
+      --border: #D6D0C4;
+      --accent: #8B6914;
+      --text-muted: #7A756A;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--warm-white);
+      color: var(--dark);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.4rem 4rem;
+      background: rgba(254, 252, 248, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s;
+    }
+    nav.scrolled { border-bottom-color: var(--border); }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: var(--dark);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--sage); }
+
+    .nav-links {
+      display: flex; gap: 2.5rem; list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.88rem; font-weight: 400;
+      color: var(--charcoal); text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--sage); }
+
+    .nav-cta {
+      display: flex; gap: 0.75rem; align-items: center;
+    }
+    .btn-ghost {
+      padding: 0.55rem 1.4rem;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem; font-weight: 400;
+      background: transparent;
+      color: var(--dark);
+      cursor: pointer;
+      letter-spacing: 0.04em;
+      transition: all 0.2s;
+    }
+    .btn-ghost:hover { background: var(--dark); color: var(--warm-white); border-color: var(--dark); }
+
+    .btn-solid {
+      padding: 0.55rem 1.4rem;
+      border: 1px solid var(--dark);
+      border-radius: 2px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem; font-weight: 500;
+      background: var(--dark);
+      color: var(--warm-white);
+      cursor: pointer;
+      letter-spacing: 0.04em;
+      transition: all 0.2s;
+    }
+    .btn-solid:hover { background: var(--sage); border-color: var(--sage); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding-top: 80px;
+    }
+
+    .hero-left {
+      padding: 8rem 4rem 6rem;
+      display: flex; flex-direction: column;
+      justify-content: center;
+      position: relative;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.78rem; font-weight: 500;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--sage); margin-bottom: 1.5rem;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .hero-eyebrow::before {
+      content: ''; display: block;
+      width: 32px; height: 1px; background: var(--sage);
+    }
+
+    .hero-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 5vw, 4.2rem);
+      font-weight: 700;
+      line-height: 1.08;
+      letter-spacing: -1px;
+      color: var(--dark);
+      margin-bottom: 1.8rem;
+    }
+    .hero-headline em {
+      font-style: italic;
+      color: var(--sage);
+    }
+
+    .hero-sub {
+      font-size: 1.05rem; font-weight: 300;
+      line-height: 1.7;
+      color: var(--text-muted);
+      max-width: 440px;
+      margin-bottom: 2.8rem;
+    }
+
+    .hero-actions { display: flex; gap: 1rem; align-items: center; }
+
+    .btn-primary {
+      padding: 0.85rem 2rem;
+      background: var(--dark);
+      color: var(--warm-white);
+      border: 1px solid var(--dark);
+      border-radius: 2px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem; font-weight: 500;
+      cursor: pointer;
+      letter-spacing: 0.04em;
+      transition: all 0.25s;
+      text-decoration: none;
+    }
+    .btn-primary:hover { background: var(--sage); border-color: var(--sage); }
+
+    .btn-link {
+      font-size: 0.88rem; font-weight: 400;
+      color: var(--dark);
+      display: flex; align-items: center; gap: 0.5rem;
+      cursor: pointer;
+      transition: gap 0.2s;
+      text-decoration: none;
+    }
+    .btn-link:hover { gap: 0.85rem; color: var(--sage); }
+    .btn-link .arrow { font-size: 1.1rem; }
+
+    .hero-right {
+      position: relative; overflow: hidden;
+      background: var(--cream);
+    }
+
+    .hero-img {
+      width: 100%; height: 100%; object-fit: cover;
+      display: block;
+    }
+
+    /* hero image placeholder */
+    .hero-img-placeholder {
+      width: 100%; height: 100%;
+      background: linear-gradient(135deg, #D4CFC4 0%, #B8B3A4 40%, #9E9886 100%);
+      display: flex; align-items: flex-end;
+      padding: 3rem;
+    }
+    .hero-img-quote {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem; font-style: italic;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.5; max-width: 360px;
+    }
+
+    .hero-stat {
+      position: absolute; bottom: 3rem; left: 4rem;
+      display: flex; gap: 3rem;
+    }
+    .stat-item {}
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem; font-weight: 700;
+      color: var(--dark); line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.8rem; font-weight: 400;
+      color: var(--text-muted);
+      letter-spacing: 0.05em; margin-top: 0.3rem;
+    }
+
+    /* ── MARQUEE ── */
+    .marquee-strip {
+      background: var(--dark);
+      padding: 1rem 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .marquee-inner {
+      display: inline-block;
+      animation: marquee 22s linear infinite;
+    }
+    .marquee-inner span {
+      font-size: 0.78rem; font-weight: 400;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      padding: 0 2.5rem;
+    }
+    .marquee-inner span.dot { color: var(--accent); }
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ── SECTION COMMONS ── */
+    section { padding: 8rem 4rem; }
+
+    .section-label {
+      font-size: 0.75rem; font-weight: 500;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--sage); margin-bottom: 1rem;
+    }
+
+    .section-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.5px;
+      color: var(--dark);
+      max-width: 640px;
+    }
+
+    /* ── ABOUT SPLIT ── */
+    .about-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+      background: var(--cream);
+    }
+
+    .about-img-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 1rem;
+    }
+    .about-img-block {
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .about-img-block:first-child {
+      grid-column: 1 / -1;
+      height: 220px;
+    }
+    .about-img-block:nth-child(2),
+    .about-img-block:nth-child(3) {
+      height: 160px;
+    }
+    .img-fill {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+
+    /* gradient placeholder blocks */
+    .grad-1 { background: linear-gradient(135deg, #8B9E85 0%, #5C6E57 100%); }
+    .grad-2 { background: linear-gradient(135deg, #B5A88C 0%, #8B7A5E 100%); }
+    .grad-3 { background: linear-gradient(135deg, #9BA8A0 0%, #6B7870 100%); }
+
+    .about-text .section-heading { margin: 1rem 0 1.5rem; }
+    .about-body {
+      font-size: 1rem; font-weight: 300;
+      line-height: 1.8; color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+
+    /* ── SERVICES GRID ── */
+    .services-section { background: var(--warm-white); }
+    .services-header {
+      display: flex; justify-content: space-between;
+      align-items: flex-end; margin-bottom: 4rem;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .service-card {
+      background: var(--warm-white);
+      padding: 2.5rem 2rem;
+      transition: background 0.3s;
+      cursor: default;
+    }
+    .service-card:hover { background: var(--cream); }
+
+    .service-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem; font-weight: 400; font-style: italic;
+      color: var(--border); margin-bottom: 2rem;
+    }
+
+    .service-icon {
+      width: 42px; height: 42px;
+      margin-bottom: 1.5rem;
+    }
+
+    .service-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem; font-weight: 700;
+      color: var(--dark); margin-bottom: 0.75rem;
+    }
+
+    .service-desc {
+      font-size: 0.88rem; font-weight: 300;
+      line-height: 1.7; color: var(--text-muted);
+    }
+
+    /* ── PROCESS ── */
+    .process-section {
+      background: var(--dark);
+      padding: 8rem 4rem;
+    }
+    .process-section .section-label { color: var(--sage-light); }
+    .process-section .section-heading { color: var(--warm-white); margin: 1rem 0 4rem; }
+
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      position: relative;
+    }
+    .process-steps::before {
+      content: '';
+      position: absolute;
+      top: 1.2rem; left: 2rem; right: 2rem;
+      height: 1px; background: rgba(255,255,255,0.1);
+    }
+
+    .process-step { position: relative; padding-top: 3rem; }
+
+    .step-dot {
+      position: absolute; top: 0; left: 0;
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: var(--sage-light);
+      border: 2px solid var(--sage);
+    }
+
+    .step-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem; font-weight: 700;
+      color: var(--warm-white); margin-bottom: 0.75rem;
+    }
+
+    .step-desc {
+      font-size: 0.88rem; font-weight: 300;
+      line-height: 1.75; color: rgba(255,255,255,0.5);
+    }
+
+    /* ── CTA BANNER ── */
+    .cta-section {
+      background: var(--cream);
+      display: grid; grid-template-columns: 1fr 1fr;
+      min-height: 480px;
+    }
+    .cta-left {
+      background: linear-gradient(135deg, #4A5C44 0%, #2E3C2A 100%);
+      padding: 5rem 4rem;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .cta-left h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem; font-weight: 700;
+      color: var(--warm-white); line-height: 1.2;
+      margin-bottom: 1.5rem;
+    }
+    .cta-left p {
+      font-size: 1rem; font-weight: 300;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.75; margin-bottom: 2.5rem;
+    }
+    .btn-cream {
+      padding: 0.85rem 2rem;
+      background: var(--cream);
+      color: var(--dark);
+      border: none; border-radius: 2px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem; font-weight: 500;
+      cursor: pointer;
+      letter-spacing: 0.04em;
+      transition: all 0.25s;
+      display: inline-block; text-decoration: none;
+      width: fit-content;
+    }
+    .btn-cream:hover { background: var(--warm-white); }
+
+    .cta-right {
+      padding: 5rem 4rem;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .cta-right h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem; font-weight: 700;
+      color: var(--dark); line-height: 1.2;
+      margin-bottom: 1.5rem;
+    }
+    .cta-right p {
+      font-size: 1rem; font-weight: 300;
+      color: var(--text-muted); line-height: 1.75;
+      margin-bottom: 2.5rem;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--dark);
+      padding: 4rem;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 4rem;
+    }
+    .footer-brand .nav-logo { color: var(--warm-white); font-size: 1.5rem; }
+    .footer-brand p {
+      font-size: 0.88rem; font-weight: 300;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.7; margin-top: 1rem;
+      max-width: 280px;
+    }
+    .footer-col h4 {
+      font-size: 0.75rem; font-weight: 500;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: rgba(255,255,255,0.35); margin-bottom: 1.25rem;
+    }
+    .footer-col a {
+      display: block; font-size: 0.88rem; font-weight: 300;
+      color: rgba(255,255,255,0.6); text-decoration: none;
+      margin-bottom: 0.7rem;
+      transition: color 0.2s;
+    }
+    .footer-col a:hover { color: var(--warm-white); }
+    .footer-bottom {
+      background: var(--dark);
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 1.5rem 4rem;
+      display: flex; justify-content: space-between;
+      align-items: center;
+    }
+    .footer-bottom p {
+      font-size: 0.8rem; font-weight: 300;
+      color: rgba(255,255,255,0.3);
+    }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(26, 26, 24, 0.7);
+      backdrop-filter: blur(6px);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    .modal-overlay.active {
+      opacity: 1; pointer-events: all;
+    }
+
+    .modal {
+      background: var(--warm-white);
+      width: 100%; max-width: 480px;
+      border-radius: 4px;
+      overflow: hidden;
+      transform: translateY(20px);
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .modal-overlay.active .modal {
+      transform: translateY(0);
+    }
+
+    .modal-header {
+      padding: 2.5rem 2.5rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: flex-start;
+    }
+    .modal-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem; font-weight: 700;
+      color: var(--dark);
+    }
+    .modal-header p {
+      font-size: 0.88rem; font-weight: 300;
+      color: var(--text-muted); margin-top: 0.4rem;
+    }
+    .modal-close {
+      background: none; border: none;
+      font-size: 1.4rem; cursor: pointer;
+      color: var(--text-muted); padding: 0; line-height: 1;
+      transition: color 0.2s;
+    }
+    .modal-close:hover { color: var(--dark); }
+
+    .modal-body { padding: 2rem 2.5rem 2.5rem; }
+
+    .tabs {
+      display: flex; gap: 0;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      margin-bottom: 2rem;
+      overflow: hidden;
+    }
+    .tab-btn {
+      flex: 1; padding: 0.65rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem; font-weight: 400;
+      letter-spacing: 0.04em;
+      background: transparent;
+      border: none; cursor: pointer;
+      color: var(--text-muted);
+      transition: all 0.2s;
+    }
+    .tab-btn.active {
+      background: var(--dark); color: var(--warm-white);
+    }
+
+    .form-group { margin-bottom: 1.1rem; }
+    .form-label {
+      display: block; font-size: 0.8rem;
+      font-weight: 500; letter-spacing: 0.06em;
+      text-transform: uppercase; color: var(--charcoal);
+      margin-bottom: 0.45rem;
+    }
+    .form-input {
+      width: 100%; padding: 0.7rem 0.9rem;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.92rem; font-weight: 300;
+      color: var(--dark); background: var(--warm-white);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-input:focus { border-color: var(--sage); }
+
+    .form-submit {
+      width: 100%; padding: 0.9rem;
+      background: var(--dark); color: var(--warm-white);
+      border: none; border-radius: 2px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.92rem; font-weight: 500;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      margin-top: 1.5rem;
+      transition: background 0.25s;
+    }
+    .form-submit:hover { background: var(--sage); }
+    .form-submit:disabled { background: var(--border); cursor: not-allowed; }
+
+    #form-message {
+      margin-top: 1rem;
+      padding: 0.7rem 1rem;
+      border-radius: 2px;
+      font-size: 0.88rem;
+      display: none;
+    }
+    #form-message.success {
+      background: #EAF3DE; color: #3B6D11;
+      border: 1px solid #C0DD97; display: block;
+    }
+    #form-message.error {
+      background: #FCEBEB; color: #A32D2D;
+      border: 1px solid #F09595; display: block;
+    }
+
+    /* ── ANIMATIONS ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .fade-up:nth-child(2) { transition-delay: 0.1s; }
+    .fade-up:nth-child(3) { transition-delay: 0.2s; }
+    .fade-up:nth-child(4) { transition-delay: 0.3s; }
+
+    @media (max-width: 900px) {
+      nav { padding: 1.2rem 2rem; }
+      .nav-links { display: none; }
+      .hero { grid-template-columns: 1fr; }
+      .hero-right { min-height: 300px; }
+      .hero-left { padding: 5rem 2rem 3rem; }
+      .hero-stat { left: 2rem; }
+      section { padding: 5rem 2rem; }
+      .about-section { grid-template-columns: 1fr; }
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      .process-steps { grid-template-columns: 1fr 1fr; }
+      .process-steps::before { display: none; }
+      .cta-section { grid-template-columns: 1fr; }
+      footer { grid-template-columns: 1fr 1fr; }
+      .services-header { flex-direction: column; gap: 1rem; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <a class="nav-logo" href="#">Nexus<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#approach">Our Approach</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-cta">
+      <button class="btn-ghost" onclick="openModal('login')">Sign In</button>
+      <button class="btn-solid" onclick="openModal('signup')">Get Started</button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" style="padding:0">
+    <div class="hero-left">
+      <div class="hero-eyebrow">Independent Advisory</div>
+      <h1 class="hero-headline">
+        Trusted<br/>
+        <em>independent</em><br/>
+        representation.
+      </h1>
+      <p class="hero-sub">
+        We partner with businesses to navigate complex decisions — from strategy and operations to workplace and commercial outcomes.
+      </p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="openModal('signup')">Start your journey</button>
+        <a class="btn-link" href="#services">Explore services <span class="arrow">→</span></a>
+      </div>
+      <div class="hero-stat">
+        <div class="stat-item">
+          <div class="stat-num">200+</div>
+          <div class="stat-label">Clients served</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">15</div>
+          <div class="stat-label">Years experience</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">98%</div>
+          <div class="stat-label">Success rate</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-img-placeholder">
+        <p class="hero-img-quote">"The right advisor makes all the difference."</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-strip">
+    <div class="marquee-inner">
+      <span>Strategy</span><span class="dot">·</span>
+      <span>Commercial Advice</span><span class="dot">·</span>
+      <span>Negotiation</span><span class="dot">·</span>
+      <span>Workplace Solutions</span><span class="dot">·</span>
+      <span>End-to-End Support</span><span class="dot">·</span>
+      <span>Independent Representation</span><span class="dot">·</span>
+      <span>Strategy</span><span class="dot">·</span>
+      <span>Commercial Advice</span><span class="dot">·</span>
+      <span>Negotiation</span><span class="dot">·</span>
+      <span>Workplace Solutions</span><span class="dot">·</span>
+      <span>End-to-End Support</span><span class="dot">·</span>
+      <span>Independent Representation</span><span class="dot">·</span>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section class="about-section" id="about">
+    <div class="about-img-grid">
+      <div class="about-img-block grad-1"></div>
+      <div class="about-img-block grad-2"></div>
+      <div class="about-img-block grad-3"></div>
+    </div>
+    <div class="about-text">
+      <div class="section-label">Building relationships</div>
+      <h2 class="section-heading">Facilitate your strategy, your way.</h2>
+      <p class="about-body">
+        At Nexus Advisory, we take a pragmatic, people-first approach to every engagement. We don't push solutions — we listen, understand, and then work alongside you to craft outcomes that genuinely serve your business.
+      </p>
+      <p class="about-body">
+        Our team brings decades of senior leadership experience across industries. We understand the stakes, and we're not afraid to advocate hard on your behalf.
+      </p>
+      <a class="btn-primary" href="#services">Our services →</a>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services-section" id="services">
+    <div class="services-header">
+      <div>
+        <div class="section-label">What we do</div>
+        <h2 class="section-heading">Expert advice, end-to-end solutions.</h2>
+      </div>
+      <a class="btn-link" href="#contact">View all services <span class="arrow">→</span></a>
+    </div>
+    <div class="services-grid">
+      <div class="service-card fade-up">
+        <div class="service-num">01</div>
+        <div class="service-title">Strategic Advisory</div>
+        <p class="service-desc">Bespoke counsel for high-stakes business decisions. We assess risk, model outcomes, and guide you to the best position.</p>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-num">02</div>
+        <div class="service-title">Commercial Negotiation</div>
+        <p class="service-desc">Experienced negotiators who fight for fair terms — from contract review to full representation at the table.</p>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-num">03</div>
+        <div class="service-title">Workplace Strategy</div>
+        <p class="service-desc">Create environments where your people thrive. We align your workplace with your culture and long-term goals.</p>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-num">04</div>
+        <div class="service-title">Long-term Support</div>
+        <p class="service-desc">Advisory doesn't end at delivery. We remain a trusted partner, adapting with your business as it evolves.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="process-section" id="approach">
+    <div class="section-label">How we work</div>
+    <h2 class="section-heading">Powering your journey forward.</h2>
+    <div class="process-steps">
+      <div class="process-step fade-up">
+        <div class="step-dot"></div>
+        <div class="step-title">Connect</div>
+        <p class="step-desc">We meet with you to understand your goals, constraints, and what success truly looks like for your organisation.</p>
+      </div>
+      <div class="process-step fade-up">
+        <div class="step-dot"></div>
+        <div class="step-title">Engage</div>
+        <p class="step-desc">Our tailored services are aligned with your business strategy — not a one-size-fits-all playbook.</p>
+      </div>
+      <div class="process-step fade-up">
+        <div class="step-dot"></div>
+        <div class="step-title">Deliver</div>
+        <p class="step-desc">We negotiate on your behalf, ensuring a fair, commercially sound outcome that meets your brief.</p>
+      </div>
+      <div class="process-step fade-up">
+        <div class="step-dot"></div>
+        <div class="step-title">Support</div>
+        <p class="step-desc">Long-term advisory relationships built on trust, honesty, and shared success — well beyond the project close.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="cta-section" id="contact">
+    <div class="cta-left">
+      <h2>Want to join our experienced team?</h2>
+      <p>We're always looking for sharp, values-driven people who want to do their best work with great clients.</p>
+      <button class="btn-cream" onclick="openModal('signup')">Join the team →</button>
+    </div>
+    <div class="cta-right">
+      <h2>Ready to chat? Start your journey.</h2>
+      <p>Create an account to access our client portal and begin your advisory engagement today.</p>
+      <button class="btn-primary" onclick="openModal('signup')">Contact us today →</button>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-brand">
+      <a class="nav-logo" href="#">Nexus<span style="color:var(--sage)">.</span></a>
+      <p>Trusted independent advisory for businesses that want to move with confidence and clarity.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="#about">About Us</a>
+      <a href="#services">Services</a>
+      <a href="#approach">Our Approach</a>
+    </div>
+    <div class="footer-col">
+      <h4>Resources</h4>
+      <a href="#">Case Studies</a>
+      <a href="#">Insights</a>
+      <a href="#">FAQs</a>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Use</a>
+    </div>
+  </footer>
+  <div class="footer-bottom">
+    <p>© 2025 Nexus Advisory. All rights reserved.</p>
+    <p>Built on AWS · S3 · EC2 · RDS</p>
+  </div>
+
+  <!-- MODAL -->
+  <div class="modal-overlay" id="modal-overlay" onclick="handleOverlayClick(event)">
+    <div class="modal">
+      <div class="modal-header">
+        <div>
+          <h2 id="modal-title">Welcome back</h2>
+          <p id="modal-subtitle">Sign in to your account</p>
+        </div>
+        <button class="modal-close" onclick="closeModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="tabs">
+          <button class="tab-btn active" id="tab-login" onclick="switchTab('login')">Sign In</button>
+          <button class="tab-btn" id="tab-signup" onclick="switchTab('signup')">Create Account</button>
+        </div>
+
+        <!-- Login Form -->
+        <div id="form-login">
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input class="form-input" type="email" id="login-email" placeholder="your@email.com"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <input class="form-input" type="password" id="login-password" placeholder="••••••••"/>
+          </div>
+          <button class="form-submit" onclick="handleLogin()">Sign In</button>
+        </div>
+
+        <!-- Signup Form -->
+        <div id="form-signup" style="display:none">
+          <div class="form-group">
+            <label class="form-label">Username</label>
+            <input class="form-input" type="text" id="signup-username" placeholder="johndoe"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input class="form-input" type="email" id="signup-email" placeholder="your@email.com"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <input class="form-input" type="password" id="signup-password" placeholder="Create a password"/>
+          </div>
+          <button class="form-submit" onclick="handleSignup()">Create Account</button>
+        </div>
+
+        <div id="form-message"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ── CONFIG: Replace with your EC2 public IP ──
+    const API_BASE = 'http://13.219.239.201:3000';
+
+    // ── NAV SCROLL ──
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 20);
+    });
+
+    // ── FADE-UP OBSERVER ──
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // ── MODAL ──
+    function openModal(tab) {
+      document.getElementById('modal-overlay').classList.add('active');
+      document.body.style.overflow = 'hidden';
+      clearMessage();
+      switchTab(tab);
+    }
+    function closeModal() {
+      document.getElementById('modal-overlay').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    function handleOverlayClick(e) {
+      if (e.target === document.getElementById('modal-overlay')) closeModal();
+    }
+    function switchTab(tab) {
+      const isLogin = tab === 'login';
+      document.getElementById('tab-login').classList.toggle('active', isLogin);
+      document.getElementById('tab-signup').classList.toggle('active', !isLogin);
+      document.getElementById('form-login').style.display = isLogin ? 'block' : 'none';
+      document.getElementById('form-signup').style.display = isLogin ? 'none' : 'block';
+      document.getElementById('modal-title').textContent = isLogin ? 'Welcome back' : 'Create account';
+      document.getElementById('modal-subtitle').textContent = isLogin ? 'Sign in to your account' : 'Join the Nexus platform';
+      clearMessage();
+    }
+
+    function showMessage(text, type) {
+      const el = document.getElementById('form-message');
+      el.textContent = text;
+      el.className = type;
+    }
+    function clearMessage() {
+      const el = document.getElementById('form-message');
+      el.textContent = ''; el.className = '';
+    }
+
+    // ── AUTH CALLS ──
+    async function handleLogin() {
+      const email = document.getElementById('login-email').value.trim();
+      const password = document.getElementById('login-password').value;
+      if (!email || !password) return showMessage('Please fill in all fields.', 'error');
+      const btn = document.querySelector('#form-login .form-submit');
+      btn.disabled = true; btn.textContent = 'Signing in…';
+      try {
+        const res = await fetch(`${API_BASE}/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+        const data = await res.json();
+        if (res.ok) showMessage(data.message || 'Signed in successfully!', 'success');
+        else showMessage(data.error || 'Invalid credentials.', 'error');
+      } catch {
+        showMessage('Could not reach the server. Please try again.', 'error');
+      }
+      btn.disabled = false; btn.textContent = 'Sign In';
+    }
+
+    async function handleSignup() {
+      const username = document.getElementById('signup-username').value.trim();
+      const email = document.getElementById('signup-email').value.trim();
+      const password = document.getElementById('signup-password').value;
+      if (!username || !email || !password) return showMessage('Please fill in all fields.', 'error');
+      if (password.length < 6) return showMessage('Password must be at least 6 characters.', 'error');
+      const btn = document.querySelector('#form-signup .form-submit');
+      btn.disabled = true; btn.textContent = 'Creating account…';
+      try {
+        const res = await fetch(`${API_BASE}/signup`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, email, password })
+        });
+        const data = await res.json();
+        if (res.ok) showMessage(data.message || 'Account created successfully!', 'success');
+        else showMessage(data.error || 'Could not create account.', 'error');
+      } catch {
+        showMessage('Could not reach the server. Please try again.', 'error');
+      }
+      btn.disabled = false; btn.textContent = 'Create Account';
+    }
+
+    // ── KEYBOARD ──
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeModal();
+    });
+  </script>
+</body>
+</html>
